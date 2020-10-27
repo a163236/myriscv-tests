@@ -20,7 +20,7 @@ C言語からRISC-Vのアセンブリや機械語のテストファイルを作�
 
 ```bash
 # このリポジトリのクローン
-git clone https://github.com/a163236/myRISCVcompilerEnvironment.git
+git clone https://github.com/a163236/myRISCVcompilerEnv.git
 
 # RISC-Vコンパイラのインストール
 sudo apt install gcc-riscv64-unknown-elf 
