@@ -1,5 +1,6 @@
 src_dir := ./src/
 env_dir := ./env/
+target_dir := ./target/
 
 XLEN = 64
 # ターゲットアーキテクチャ
@@ -13,11 +14,12 @@ RISCV_OBJDUMP ?= $(RISCV_PREFIX)objdump --disassemble-all --disassemble-zeroes -
 RISCV_OBJCOPY ?= $(RISCV_PREFIX)objcopy -O binary 
 
 # ソースファイル
-CSRC = $(wildcard $(src_dir)*.c)
-OUTSRC = $(patsubst %.c,%.out,$(CSRC))
-DUMPSRC = $(patsubst %.c,%.dump,$(CSRC))
-BINSRC = $(patsubst %.c,%.bin,$(CSRC))
-HEXSRC = $(patsubst %.c,%.hex,$(CSRC))
+CSRC = $(wildcard $(src_dir)*.c)			# srcディレクトリの全Cソースファイル
+CSRC_2 = $(subst ./src/, ./target/,$(CSRC))	# ./target/パス に変更
+OUTSRC = $(patsubst %.c,%.out,$(CSRC_2))
+DUMPSRC = $(patsubst %.c,%.dump,$(CSRC_2))
+BINSRC = $(patsubst %.c,%.bin,$(CSRC_2))
+HEXSRC = $(patsubst %.c,%.hex,$(CSRC_2))
 
 # dumpとhexの出力
 all: $(HEXSRC) $(DUMPSRC)
@@ -39,8 +41,9 @@ all: $(HEXSRC) $(DUMPSRC)
 
 # outファイル
 %.out: $(CSRC)
-	$(RISCV_GCC) $(RISCV_GCC_OPTS) $*.c -o $@
-
+	# /src/.c -> /target/.out
+	$(RISCV_GCC) $(RISCV_GCC_OPTS) $(subst target/, src/, $*).c -o $@   
+	
 # ファイル削除
 clean:
-	rm -f $(src_dir)*.o $(src_dir)*.bin $(src_dir)*.out $(src_dir)*.dump $(src_dir)*.hex
+	rm -f $(target_dir)*.o $(target_dir)*.bin $(target_dir)*.out $(target_dir)*.dump $(target_dir)*.hex
