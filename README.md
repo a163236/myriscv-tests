@@ -75,5 +75,5 @@ TARARCH = rv32i
 クローンしたリポジトリを削除するだけ。
 
 ```bash
-sudo rm -r myRISCVcompilerEnvironment
+sudo rm -r myRISCVcompilerEnv
 ```
