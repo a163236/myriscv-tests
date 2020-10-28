@@ -1,6 +1,12 @@
 # About
 
 C言語からRISC-Vのアセンブリや機械語のテストファイルを作成したいときにmakeコマンドで作れるツール。
+riscv-tests(https://github.com/riscv/riscv-tests)で生成されたテストコードはCSRの実装が必須となるが、これではCSRがなくてもよい。
+
+
+main関数の
+```return x;```
+のxはa0レジスタに入るので、そこが任意の値になってるかチェックするとよい。
 
 ## 入力のCファイル
 
