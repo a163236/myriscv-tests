@@ -26,7 +26,7 @@ main関数の
 
 ```bash
 # このリポジトリのクローン
-git clone https://github.com/a163236/myRISCVcompilerEnv.git
+git clone https://github.com/a163236/myriscv-tests.git
 
 # RISC-Vコンパイラのインストール
 sudo apt install gcc-riscv64-unknown-elf 
@@ -81,5 +81,5 @@ TARARCH = rv32i
 クローンしたリポジトリを削除するだけ。
 
 ```bash
-sudo rm -r myRISCVcompilerEnv
+sudo rm -r myriscv-tests
 ```
