@@ -1,19 +1,17 @@
 int main(void){
 
-    int a[10];
-    int b[10];
-    int c = 0;
+    int a[2];
 
-    for (int i = 0; i < 10; i++)
+    for (int i = 0; i < 2; i++)
     {
-        a[i]=i; b[i]=i;
+        a[i]=i;
     }
-    
+/*    
     for (int i = 0; i < 10; i++)
     {
         c += a[i] + b[i]; 
     }
-    
-    return c;
+ */  
+    return a[1];
 
 }
