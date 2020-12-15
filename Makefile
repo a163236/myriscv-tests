@@ -9,6 +9,8 @@ TARMABI = ilp32
 RISCV_PREFIX ?= riscv$(XLEN)-unknown-elf-
 RISCV_GCC ?= $(RISCV_PREFIX)gcc
 RISCV_GCC_OPTS ?= -static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles -T $(env_dir)link.ld -march=$(TARARCH) -mabi=$(TARMABI)
+RISCV_AS ?= $(RISCV_PREFIX)as
+RISCV_LD ?= $(RISCV_PREFIX)ld
 RISCV_OBJDUMP ?= $(RISCV_PREFIX)objdump --disassemble-all --disassemble-zeroes --section=.text --section=.text.startup --section=.text.init --section=.data
 RISCV_OBJCOPY ?= $(RISCV_PREFIX)objcopy -O binary 
 
@@ -38,10 +40,14 @@ all: $(HEXSRC) $(DUMPSRC)
 %.dump: $(OUTSRC)
 	$(RISCV_OBJDUMP) $*.out > $@
 
-# outファイル
-%.out: $(CSRC)
-	$(RISCV_GCC) $(RISCV_GCC_OPTS) $*.c -o $@   
-	
+# outファイル 
+%.out: $(CSRC) _start.o
+	$(RISCV_GCC) $(RISCV_GCC_OPTS) _start.o $*.c -o  $@
+
+# スタートアップファイル
+_start.o:
+	$(RISCV_AS) $(env_dir)_start.S -o $@ -march=$(TARARCH) -mabi=$(TARMABI)
+
 # ファイル削除
 clean:
-	rm -f $(src_dir)*.o $(src_dir)*.bin $(src_dir)*.out $(src_dir)*.dump $(src_dir)*.hex
+	rm -f $(src_dir)*.o $(src_dir)*.bin $(src_dir)*.out $(src_dir)*.dump $(src_dir)*.hex *.out *.o
