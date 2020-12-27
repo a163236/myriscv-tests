@@ -3,7 +3,7 @@ env_dir := ./env/
 
 XLEN = 64
 # ターゲットアーキテクチャ
-TARARCH = rv32i
+TARARCH = rv32ia
 TARMABI = ilp32
 
 RISCV_PREFIX ?= riscv$(XLEN)-unknown-elf-
@@ -41,12 +41,8 @@ all: $(HEXSRC) $(DUMPSRC)
 	$(RISCV_OBJDUMP) $*.out > $@
 
 # outファイル 
-%.out: $(CSRC) _start.o
-	$(RISCV_GCC) $(RISCV_GCC_OPTS) _start.o $*.c -o  $@
-
-# スタートアップファイル
-_start.o:
-	$(RISCV_AS) $(env_dir)_start.S -o $@ -march=$(TARARCH) -mabi=$(TARMABI)
+%.out: $(CSRC) 
+	$(RISCV_GCC) $(RISCV_GCC_OPTS) $(env_dir)_start.S $(env_dir)_lrsc.S $*.c -o  $@
 
 # ファイル削除
 clean:

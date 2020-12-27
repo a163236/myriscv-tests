@@ -2,7 +2,9 @@
 	.data	100
 # Text segment
   .text	
-  .globl _startup
+  .globl _start
 
-_startup:
-    li sp, 200
+_start:
+  li sp, 200
+  j main
+
