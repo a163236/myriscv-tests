@@ -1,6 +1,7 @@
-extern void _cas();
-int main()
+extern void _tc();
+int main(void)
 {
-	_cas();
+
+	_tc();
   return 0;
 }
