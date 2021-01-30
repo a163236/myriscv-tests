@@ -1,8 +1,9 @@
 # Data segment
-	.data	100
+  .data	100
 # Text segment
   .text	
-  .globl _startup
+  .globl _start
 
-_startup:
-    li sp, 200
+_start:
+  li sp, 1000 # 動的なメモリ確保の領域
+  li ra, 1000 # 戻りアドレス
